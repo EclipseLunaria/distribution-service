@@ -1,22 +1,10 @@
 import fs, { ensureDirSync } from "fs-extra";
-import path from "path";
-import { config as loadEnv } from "dotenv";
+import { getChapterDir, getPageUrl } from "../utils/helpers";
 import {
   extractChapterFromSite,
   fetchChapterLocally,
 } from "./extractionServices";
 
-if (!process.env.NODE_ENV) {
-  loadEnv();
-}
-
-const CONTENT_DIR = process.env.NODE_ENV
-  ? path.join(__dirname + `../../.local`)
-  : "/chap";
-
-const getChapterDir = (mangaId: string, chapterId: string) => {
-  return `${CONTENT_DIR}/${mangaId}/${chapterId}`;
-};
 
 const storePage = async (
   mangaId: string,
@@ -25,13 +13,12 @@ const storePage = async (
   screenshot: Buffer
 ) => {
   // Ensure the directory exists
-  console.log("Content dir:", CONTENT_DIR);
   const CHAPTER_DIR = getChapterDir(mangaId, chapterId);
   ensureDirSync(CHAPTER_DIR);
   // store the screenshot in the local storage
   const pageUri = `${CHAPTER_DIR}/${pageNumber}.png`;
   fs.writeFileSync(pageUri, screenshot);
-  return pageUri;
+  return getPageUrl(mangaId, chapterId, pageNumber);
 };
 
 const loadChapter = async (mangaId: string, chapterId: string) => {
@@ -48,4 +35,4 @@ const chapterExists = (mangaId: string, chapterId: string) => {
   return fs.existsSync(getChapterDir(mangaId, chapterId));
 };
 
-export { chapterExists, storePage, loadChapter, getChapterDir };
+export { chapterExists, storePage, loadChapter };
