@@ -1,8 +1,9 @@
 import { ElementHandle, Page } from "puppeteer";
 import { openPage } from "../utils/extractionUtils";
-import { storePage, getChapterDir } from "./storageServices";
+import { storePage } from "./storageServices";
 import fs from "fs-extra";
 import { sortByPageNumber } from "../utils/helpers";
+import { getChapterDir } from "../utils/helpers";
 
 export const fetchChapterLocally = async (
   mangaId: string,
