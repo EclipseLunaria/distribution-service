@@ -24,10 +24,12 @@ const storePage = async (
 const loadChapter = async (mangaId: string, chapterId: string) => {
   // if chapter exists
   if (chapterExists(mangaId, chapterId)) {
-    return fetchChapterLocally(mangaId, chapterId);
+    console.log("chapter exists:", chapterId)
+    return await fetchChapterLocally(mangaId, chapterId);
   }
   // if chapter does not exist
   // extract the chapter from the site
+  console.log("scraping chapter:", chapterId)
   return await extractChapterFromSite(mangaId, chapterId);
 };
 
