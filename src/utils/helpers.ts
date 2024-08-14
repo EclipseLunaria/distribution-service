@@ -23,9 +23,9 @@ export const sortByPageNumber = (a?: string, b?: string) => {
 export const getPageUrl = (
   mangaId: string,
   chapterId: string,
-  pageNumber: number
+  pageNumber: string
 ) => {
-  return `${CONTENT_URL_BASE}/${mangaId}/${chapterId}/${pageNumber}.png`;
+  return `${CONTENT_URL_BASE}/${mangaId}/${chapterId}/${pageNumber}`;
 };
 
 export const getChapterDir = (mangaId: string, chapterId: string) => {

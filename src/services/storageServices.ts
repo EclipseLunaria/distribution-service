@@ -15,10 +15,12 @@ const storePage = async (
   // Ensure the directory exists
   const CHAPTER_DIR = getChapterDir(mangaId, chapterId);
   ensureDirSync(CHAPTER_DIR);
+  const pageFileName = `${pageNumber}.png`
   // store the screenshot in the local storage
-  const pageUri = `${CHAPTER_DIR}/${pageNumber}.png`;
+  
+  const pageUri = `${CHAPTER_DIR}/${pageFileName}`;
   fs.writeFileSync(pageUri, screenshot);
-  return getPageUrl(mangaId, chapterId, pageNumber);
+  return getPageUrl(mangaId, chapterId, `${pageFileName}`);
 };
 
 const loadChapter = async (mangaId: string, chapterId: string) => {

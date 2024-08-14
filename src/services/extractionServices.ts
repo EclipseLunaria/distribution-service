@@ -2,7 +2,7 @@ import { ElementHandle, Page } from "puppeteer";
 import { openPage } from "../utils/extractionUtils";
 import { storePage } from "./storageServices";
 import fs from "fs-extra";
-import { sortByPageNumber } from "../utils/helpers";
+import { getPageUrl, sortByPageNumber } from "../utils/helpers";
 import { getChapterDir } from "../utils/helpers";
 
 export const fetchChapterLocally = async (
@@ -10,8 +10,11 @@ export const fetchChapterLocally = async (
   chapterId: string
 ) => {
   const chapterDir = getChapterDir(mangaId, chapterId);
-  const files = fs.readdirSync(chapterDir);
-  return files.sort(sortByPageNumber).map((file) => `${chapterDir}/${file}`);
+  
+  return fs.readdirSync(chapterDir)
+  .map((file:string)=>getPageUrl(mangaId,chapterId, file))
+  .sort(sortByPageNumber)
+  
 };
 
 export const extractChapterFromSite = async (
