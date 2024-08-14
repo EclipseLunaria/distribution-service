@@ -57,7 +57,7 @@ export const screenshotElement = async (
     topElem?.remove();
   }, topElem);
 
-  return await element.screenshot({
+  return Buffer.from(await element.screenshot({
     type: "png",
-  });
+  }));
 };
