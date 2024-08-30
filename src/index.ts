@@ -1,4 +1,4 @@
-import router from "./routes/routes";
+import router from "./routes";
 import express from "express";
 import process from "process";
 
